@@ -53,7 +53,8 @@ class NewEntryViewModel @Inject constructor(
             reminder.id = reminderRepository.create(reminder)
             reminderAlarmManager.setAlarm(reminder)
 
-            //todo: clear data
+            reminderText.value = ""
+            remindAt.value = LocalDateTime.now()
             onFinished()
         }
     }
