@@ -46,12 +46,14 @@ class ListFragment : Fragment() {
 
         reminderAdapter.setTracker(selectionTracker)
         selectionTracker.addObserver(
-            ReminderAdapter.SelectionTrackerObserver(
+            reminderAdapter.SelectionTrackerObserver(
                 binding.reminderList,
                 keyProvider,
-                selectionTracker
-            ) { requireActivity().startActionMode(it) }
+                { requireActivity().startActionMode(it) },
+                { listViewModel.deleteSelectedReminders(it) }
+            )
         )
+        selectionTracker.onRestoreInstanceState(savedInstanceState)
 
         this.selectionTracker = selectionTracker
 
@@ -75,10 +77,5 @@ class ListFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         selectionTracker?.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        selectionTracker?.onRestoreInstanceState(savedInstanceState)
     }
 }

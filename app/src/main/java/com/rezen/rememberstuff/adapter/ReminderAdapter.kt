@@ -12,7 +12,7 @@ import com.rezen.rememberstuff.data.entity.Reminder
 import com.rezen.rememberstuff.databinding.ReminderListItemBinding
 import java.time.format.DateTimeFormatter
 
-class ReminderAdapter : PagingDataAdapter<Reminder, ReminderAdapter.ReminderViewHolder>(ReminderDiffCallback()) {
+class ReminderAdapter : PagingDataAdapter<Reminder, ReminderViewHolder>(ReminderDiffCallback()) {
     private lateinit var selectionTracker: SelectionTracker<Long>
     fun setTracker(tracker: SelectionTracker<Long>) {
         selectionTracker = tracker
@@ -34,32 +34,6 @@ class ReminderAdapter : PagingDataAdapter<Reminder, ReminderAdapter.ReminderView
         )
     }
 
-    class ReminderViewHolder(private val binding: ReminderListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        private var reminderId: Long? = null
-
-        fun bind(reminder: Reminder, selected: Boolean) {
-            reminderId = reminder.id
-
-            binding.apply {
-                root.isActivated = selected
-                reminderText.text = reminder.text
-                remindAt.text = reminder.remindAt.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
-            }
-        }
-
-        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> {
-            return object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getPosition(): Int {
-                    return bindingAdapterPosition
-                }
-
-                override fun getSelectionKey(): Long? {
-                    return reminderId
-                }
-            }
-        }
-    }
-
     inner class ReminderItemKeyProvider : ItemKeyProvider<Long>(SCOPE_CACHED) {
         override fun getKey(position: Int): Long {
             return snapshot().items[position].id
@@ -70,11 +44,11 @@ class ReminderAdapter : PagingDataAdapter<Reminder, ReminderAdapter.ReminderView
         }
     }
 
-    class SelectionTrackerObserver(
-        private val recyclerView: RecyclerView,
+    inner class SelectionTrackerObserver(
+        private var recyclerView: RecyclerView,
         private val keyProvider: ItemKeyProvider<Long>,
-        private val selectionTracker: SelectionTracker<Long>,
-        private val startActionMode: (ActionMode.Callback) -> ActionMode?
+        private val startActionMode: (ActionMode.Callback) -> ActionMode?,
+        private val deleteReminders: (List<Reminder>) -> Unit
     ) : SelectionTracker.SelectionObserver<Long>() {
         private var actionMode: ActionMode? = null
 
@@ -109,8 +83,13 @@ class ReminderAdapter : PagingDataAdapter<Reminder, ReminderAdapter.ReminderView
                 override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
                     return when (item.itemId) {
                         R.id.delete -> {
-
+                            deleteReminders(
+                                selectionTracker.selection.mapNotNull { selectionKey ->
+                                    getItem(keyProvider.getPosition(selectionKey))
+                                }
+                            )
                             actionMode?.finish()
+                            refresh()
                             true
                         }
                         else -> false
@@ -145,6 +124,6 @@ class ReminderItemDetailsLookup(private val view: RecyclerView) : ItemDetailsLoo
         val childView = view.findChildViewUnder(e.x, e.y) ?: return null
         val childViewHolder = view.getChildViewHolder(childView)
 
-        return (childViewHolder as ReminderAdapter.ReminderViewHolder).getItemDetails()
+        return (childViewHolder as ReminderViewHolder).getItemDetails()
     }
 }
