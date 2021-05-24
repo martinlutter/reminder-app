@@ -19,6 +19,8 @@ class ReminderRepository @Inject constructor(private val reminderDao: ReminderDa
         }.flow
     }
 
+    suspend fun getAll() = reminderDao.getAll()
+
     suspend fun deleteById(id: Long) = reminderDao.delete(id)
     suspend fun deleteAll(reminders: List<Reminder>) = reminderDao.deleteAll(reminders)
 }
