@@ -23,4 +23,7 @@ interface ReminderDao {
 
     @Query("SELECT * FROM reminder")
     suspend fun getAll(): List<Reminder>
+
+    @Update
+    suspend fun update(reminder: Reminder)
 }
