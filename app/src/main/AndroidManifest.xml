@@ -22,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AlarmActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-            </intent-filter>
+        <activity android:name=".AlarmActivity"
+                  android:showOnLockScreen="true"
+                  android:noHistory="true"
+                  android:launchMode="singleInstance"
+                  android:excludeFromRecents="true">
         </activity>
 
         <receiver android:name=".broadcastreceiver.BootCompleteAndTimeChangedReceiver">
@@ -33,6 +34,16 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.TIME_SET"/>
             </intent-filter>
+        </receiver>
+
+        <receiver android:name=".broadcastreceiver.AlarmNotificationReceiver">
+            <intent-filter>
+                <action android:name="tralalacik"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".broadcastreceiver.notificationaction.SnoozeReceiver">
+        </receiver>
+        <receiver android:name=".broadcastreceiver.notificationaction.CompleteReceiver">
         </receiver>
     </application>
 

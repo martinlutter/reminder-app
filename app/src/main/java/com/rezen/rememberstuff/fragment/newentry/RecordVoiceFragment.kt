@@ -71,6 +71,7 @@ class RecordVoiceFragment : Fragment(), CoroutineScope by MainScope() {
                         putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR")
                     }
                 )
+//                newEntryViewModel.setReminderText("test text")
             }
             nextPageButton.setOnClickListener {
                 findNavController().navigate(R.id.action_recordVoiceFragment_to_chooseDatetimeFragment)

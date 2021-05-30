@@ -4,8 +4,8 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import com.rezen.rememberstuff.AlarmActivity
+import com.rezen.rememberstuff.broadcastreceiver.AlarmNotificationReceiver
+import com.rezen.rememberstuff.broadcastreceiver.BootCompleteAndTimeChangedReceiver
 import com.rezen.rememberstuff.data.entity.Reminder
 import dagger.Reusable
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,10 +20,9 @@ class ReminderAlarmManager @Inject constructor(
 ) {
     fun setAlarm(reminder: Reminder) {
         val atZone = reminder.remindAt.withSecond(0).atZone(ZoneOffset.systemDefault())
-        Log.d("blabla", atZone.toString())
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-//            LocalDateTime.now().plusSeconds(5).atZone(ZoneOffset.systemDefault()).toEpochSecond(),
+//            LocalDateTime.now().plusSeconds(5).atZone(ZoneOffset.systemDefault()).toEpochSecond() * 1000,
             atZone.toEpochSecond() * 1000,
             createIntent(reminder)
         )
@@ -33,13 +32,13 @@ class ReminderAlarmManager @Inject constructor(
         alarmManager.cancel(createIntent(reminder))
     }
 
-    private fun createIntent(reminder: Reminder) = PendingIntent.getActivity(
+    private fun createIntent(reminder: Reminder) = PendingIntent.getBroadcast(
         context,
         reminder.id.toInt(),
-        Intent(context, AlarmActivity::class.java).apply {
-            putExtra("id", reminder.id)
-            putExtra("remindText", reminder.text)
-            putExtra("remindAt", reminder.remindAt)
+        Intent(context, AlarmNotificationReceiver::class.java).apply {
+            putExtra("reminderId", reminder.id)
+            putExtra("reminderText", reminder.text)
+            action = "tralalacik"
         },
         PendingIntent.FLAG_UPDATE_CURRENT
     )

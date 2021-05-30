@@ -1,8 +1,13 @@
 package com.rezen.rememberstuff.broadcastreceiver
 
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.rezen.rememberstuff.AlarmActivity
 import com.rezen.rememberstuff.data.ReminderRepository
 import com.rezen.rememberstuff.process.ReminderAlarmManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +21,7 @@ import javax.inject.Inject
 class BootCompleteAndTimeChangedReceiver : BroadcastReceiver(), CoroutineScope by MainScope() {
     @Inject
     lateinit var reminderRepository: ReminderRepository
+
     @Inject
     lateinit var reminderAlarmManager: ReminderAlarmManager
 

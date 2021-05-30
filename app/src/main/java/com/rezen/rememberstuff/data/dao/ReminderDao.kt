@@ -3,6 +3,7 @@ package com.rezen.rememberstuff.data.dao
 import androidx.room.*
 import com.rezen.rememberstuff.data.entity.Reminder
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 
 @Dao
 interface ReminderDao {
@@ -24,6 +25,9 @@ interface ReminderDao {
     @Query("SELECT * FROM reminder")
     suspend fun getAll(): List<Reminder>
 
-    @Update
-    suspend fun update(reminder: Reminder)
+    @Query("UPDATE reminder SET remindAt = :remindAt WHERE id = :id")
+    suspend fun updateRemindAt(id: Long, remindAt: LocalDateTime)
+
+    @Query("SELECT * FROM reminder WHERE id = :id")
+    suspend fun get(id: Long): Reminder
 }

@@ -7,6 +7,7 @@ import com.rezen.rememberstuff.data.dao.ReminderDao
 import com.rezen.rememberstuff.data.entity.Reminder
 import dagger.Reusable
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @Reusable
@@ -20,8 +21,9 @@ class ReminderRepository @Inject constructor(private val reminderDao: ReminderDa
     }
 
     suspend fun getAll() = reminderDao.getAll()
+    suspend fun get(id: Long) = reminderDao.get(id)
 
-    suspend fun update(reminder: Reminder) = reminderDao.update(reminder)
+    suspend fun updateRemindAt(id: Long, remindAt: LocalDateTime) = reminderDao.updateRemindAt(id, remindAt)
 
     suspend fun deleteById(id: Long) = reminderDao.delete(id)
     suspend fun deleteAll(reminders: List<Reminder>) = reminderDao.deleteAll(reminders)
