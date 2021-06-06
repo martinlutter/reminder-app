@@ -1,6 +1,7 @@
 package com.rezen.rememberstuff.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.rezen.rememberstuff.R
 import com.rezen.rememberstuff.adapter.ReminderAdapter
 import com.rezen.rememberstuff.adapter.ReminderItemDetailsLookup
+import com.rezen.rememberstuff.adapter.ReminderViewHolder
 import com.rezen.rememberstuff.databinding.ListBinding
 import com.rezen.rememberstuff.viewmodel.ListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +67,11 @@ class ListFragment : Fragment() {
                 reminderAdapter.submitData(it)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (binding.reminderList.adapter as PagingDataAdapter<*, *>?)?.refresh()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -17,7 +17,7 @@ class Application : Application() {
                 NotificationChannel(
                     "rememberstuff.notification_channel",
                     "Reminder app",
-                    NotificationManager.IMPORTANCE_MAX
+                    NotificationManager.IMPORTANCE_DEFAULT
                 )
             )
         }
