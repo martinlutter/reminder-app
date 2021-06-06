@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.rezen.rememberstuff">
+          package="com.rezen.reminderapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -8,42 +8,39 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
-            android:name=".Application"
+            android:name="com.rezen.reminderapp.Application"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.rezen.reminderapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AlarmActivity"
+        <activity android:name="com.rezen.reminderapp.AlarmActivity"
                   android:showOnLockScreen="true"
                   android:noHistory="true"
                   android:launchMode="singleInstance"
                   android:excludeFromRecents="true">
         </activity>
 
-        <receiver android:name=".broadcastreceiver.BootCompleteAndTimeChangedReceiver">
+        <receiver android:name="com.rezen.reminderapp.broadcastreceiver.BootCompleteAndTimeChangedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.TIME_SET"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".broadcastreceiver.AlarmNotificationReceiver">
-            <intent-filter>
-                <action android:name="tralalacik"/>
-            </intent-filter>
+        <receiver android:name="com.rezen.reminderapp.broadcastreceiver.AlarmNotificationReceiver">
         </receiver>
-        <receiver android:name=".broadcastreceiver.notificationaction.SnoozeReceiver">
+        <receiver android:name="com.rezen.reminderapp.broadcastreceiver.notificationaction.SnoozeReceiver">
         </receiver>
-        <receiver android:name=".broadcastreceiver.notificationaction.CompleteReceiver">
+        <receiver android:name="com.rezen.reminderapp.broadcastreceiver.notificationaction.CompleteReceiver">
         </receiver>
     </application>
 
