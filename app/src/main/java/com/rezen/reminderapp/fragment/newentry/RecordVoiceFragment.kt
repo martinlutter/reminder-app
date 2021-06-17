@@ -63,11 +63,8 @@ class RecordVoiceFragment : Fragment(), CoroutineScope by MainScope() {
                     Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
                         putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
                         putExtra(RecognizerIntent.EXTRA_LANGUAGE, "sk-SK")
-                        putExtra("android.speech.extra.GET_AUDIO", true)
-                        putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR")
                     }
                 )
-//                newEntryViewModel.setReminderText("test text")
             }
             nextPageButton.setOnClickListener {
                 findNavController().navigate(R.id.action_recordVoiceFragment_to_chooseDatetimeFragment)

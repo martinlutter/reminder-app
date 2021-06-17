@@ -34,7 +34,6 @@ class SnoozeReceiver : BroadcastReceiver(), CoroutineScope {
 
         val reminderId = intent.getLongExtra("reminderId", 0)
         val pendingResult = goAsync()
-        Log.d("blabla", "SnoozeReceiver:onReceive, id: $reminderId")
 
         launch {
             reminderRepository.updateRemindAt(reminderId, LocalDateTime.now().plusMinutes(10))

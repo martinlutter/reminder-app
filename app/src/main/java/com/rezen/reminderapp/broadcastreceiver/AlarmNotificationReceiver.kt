@@ -7,7 +7,6 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.rezen.reminderapp.AlarmActivity
 import com.rezen.reminderapp.BuildConfig
 import com.rezen.reminderapp.broadcastreceiver.notificationaction.BROADCAST_ACTION_COMPLETE_REMINDER
 import com.rezen.reminderapp.broadcastreceiver.notificationaction.BROADCAST_ACTION_SNOOZE_REMINDER
@@ -24,7 +23,6 @@ class AlarmNotificationReceiver : BroadcastReceiver() {
 
         val reminderId = intent.getLongExtra("reminderId", 0)
         val reminderText = intent.getStringExtra("reminderText") ?: return
-        Log.d("blabla", "AlarmNotificationReceiver:onReceive, id: $reminderId, text: $reminderText")
 
         NotificationManagerCompat.from(context).notify(
             reminderId.toInt(),

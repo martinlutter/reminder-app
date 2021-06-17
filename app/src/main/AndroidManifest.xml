@@ -22,12 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.rezen.reminderapp.AlarmActivity"
-                  android:showOnLockScreen="true"
-                  android:noHistory="true"
-                  android:launchMode="singleInstance"
-                  android:excludeFromRecents="true">
-        </activity>
 
         <receiver android:name="com.rezen.reminderapp.broadcastreceiver.BootCompleteAndTimeChangedReceiver">
             <intent-filter>

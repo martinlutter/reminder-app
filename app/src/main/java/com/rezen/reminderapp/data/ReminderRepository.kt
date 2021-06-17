@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ReminderRepository @Inject constructor(private val reminderDao: ReminderDao) {
     suspend fun create(reminder: Reminder) = reminderDao.create(reminder)
 
-    fun getFirstPage(): Flow<PagingData<Reminder>> {
+    fun getPagingData(): Flow<PagingData<Reminder>> {
         return Pager(PagingConfig(10)) {
             ReminderPagingSource(reminderDao)
         }.flow

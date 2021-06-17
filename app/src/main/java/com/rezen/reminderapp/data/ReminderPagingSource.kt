@@ -13,7 +13,6 @@ class ReminderPagingSource(private val reminderDao: ReminderDao) : PagingSource<
         val data = reminderDao.getByPage(loadSize, (page - 1) * loadSize)
 
         return try {
-            Log.d("blabla", "loading page $page, loadSize $loadSize")
             LoadResult.Page(
                 data,
                 null,

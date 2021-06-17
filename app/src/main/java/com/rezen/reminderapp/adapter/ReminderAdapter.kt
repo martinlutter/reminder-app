@@ -70,7 +70,7 @@ class ReminderAdapter : PagingDataAdapter<Reminder, ReminderViewHolder>(Reminder
             actionMode = startActionMode(object : ActionMode.Callback {
                 override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
                     mode.menuInflater.inflate(R.menu.reminder_list_selection, menu)
-                    mode.title = selectionTracker.selection.size().toString() + " selected"
+                    mode.title = getBarTitle()
                     return true
                 }
 
@@ -98,6 +98,8 @@ class ReminderAdapter : PagingDataAdapter<Reminder, ReminderViewHolder>(Reminder
                     actionMode = null
                     selectionTracker.clearSelection()
                 }
+
+                private fun getBarTitle() = selectionTracker.selection.size().toString() + " selected"
             })
         }
 

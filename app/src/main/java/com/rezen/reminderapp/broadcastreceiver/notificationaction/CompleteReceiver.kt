@@ -34,7 +34,6 @@ class CompleteReceiver : BroadcastReceiver(), CoroutineScope {
 
         val reminderId = intent.getLongExtra("reminderId", 0)
         val pendingResult = goAsync()
-        Log.d("blabla", "CompleteReceiver:onReceive, id: $reminderId")
 
         launch {
             reminderRepository.deleteById(reminderId)

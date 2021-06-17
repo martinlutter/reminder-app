@@ -17,8 +17,8 @@ class ListViewModel @Inject constructor(
     private val reminderRepository: ReminderRepository,
     private val reminderAlarmManager: ReminderAlarmManager
 ) : ViewModel() {
-    fun getFirstPage(): Flow<PagingData<Reminder>> {
-        return reminderRepository.getFirstPage().cachedIn(viewModelScope)
+    fun getPagingData(): Flow<PagingData<Reminder>> {
+        return reminderRepository.getPagingData().cachedIn(viewModelScope)
     }
 
     fun deleteSelectedReminders(reminders: List<Reminder>) {

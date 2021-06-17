@@ -70,7 +70,7 @@ class ListFragment : Fragment() {
         this.selectionTracker = selectionTracker
 
         viewLifecycleOwner.lifecycleScope.launch {
-            listViewModel.getFirstPage().collectLatest {
+            listViewModel.getPagingData().collectLatest {
                 reminderAdapter.submitData(it)
             }
         }
