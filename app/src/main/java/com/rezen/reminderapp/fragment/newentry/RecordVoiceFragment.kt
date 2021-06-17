@@ -58,7 +58,7 @@ class RecordVoiceFragment : Fragment(), CoroutineScope by MainScope() {
             }
 
         binding.apply {
-            binding.floatingActionButton.setOnClickListener {
+            floatingActionButton.setOnClickListener {
                 speechToTextActivityResultContract?.launch(
                     Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
                         putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -71,11 +71,9 @@ class RecordVoiceFragment : Fragment(), CoroutineScope by MainScope() {
             }
         }
 
-        newEntryViewModel.apply {
-            getReminderText().observe(viewLifecycleOwner) {
-                binding.textView.text = it
-                binding.nextPageButton.isEnabled = it.isNotBlank()
-            }
+        newEntryViewModel.getReminderText().observe(viewLifecycleOwner) {
+            binding.textView.text = it
+            binding.nextPageButton.isEnabled = it.isNotBlank()
         }
     }
 
